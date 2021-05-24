@@ -8,8 +8,8 @@
 IPFS作为Web3.0的重要基础设施，一直备受关注。[go-ipfs](https://github.com/ipfs/go-ipfs) 是其主要实现, 虽然已上线多年,一直处于半可用状态。主要归咎于没有激励层，导致活跃节点不多。随着万众期待的 [Filecoin](https://github.com/filecoin-project/lotus) 主网的上线，本以为可以得到改观。但是由于Filecoin本身的机制，决定了它只能存储冷数据。即使存取一个只有几K的小文件也要数个小时，这远远不能满足目前web3.0的要求。回到[go-ipfs](https://github.com/ipfs/go-ipfs)本身，我们发现它的文件存取非常快。目前也有许多团队基于上面开发，但都是各自为战，没有形成合力。GPFS要做的就是通过改造IPFS网络，提供激励节点，让所有的个人电脑都可以成为矿工，通过提供存储空间，获取激励，从而提升整个IPFS网络的吞吐量，保证网络中数据的安全、可用，真正成为web3.0的基石。
 
 ## 网络结构
-GPFS节点是IPFS网络中的特殊节点，与IPFS节点无缝对接。从IPFS节点上可以读取保存在GPFS节点上的数据，反之亦然。同时通过GPFS节点保存的数据，会自动广播到其他的GPFS节点，形成3~5个副本，即使本地的数据被删除，也能从任意的IPFS或GPFS节点通过文件的CID找回。
-![](https://raw.githubusercontent.com/gpfs/litepaper/main/image/network.jpg)
+GPFS节点是IPFS网络中的特殊节点，与IPFS节点无缝对接。从IPFS节点上可以读取保存在GPFS节点上的数据，反之亦然。同时通过GPFS节点保存的数据，会自动广播到其他的GPFS节点，形成3~5个副本，即使本地的数据被删除，也能从任意的IPFS或GPFS节点通过文件的CID找回。网络拓扑图如下：
+![](https://raw.githubusercontent.com/gpfs-group/gpfs-doc/main/image/gpfs.jpg)
 
 ## GPFS与Filecoin的差异
 - GPFS和IPFS同处一个网络，Filecoin是独立的网络。
