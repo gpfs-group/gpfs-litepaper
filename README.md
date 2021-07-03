@@ -1,44 +1,43 @@
 
-# GPFS Project Litepaper GPFS白皮书 
+# GPFS Network Litepaper
 
-## 摘要
-星际文件系统(InterPlanetary File System)简称IPFS，是一个分布式的web, 点到点超媒体协议。可以让我们的互联网速度更快, 更加安全, 并且更加开放。在某些方面， IPFS类似于web, 但web 是中心化的，而IPFS是一个单一的Bittorrent 群集， 用git 仓库分布式存储。换句话说，IPFS 提供了高吞吐量的内容寻址块存储模型， 具有内容寻址的超链接。这形成了一个广义的Merkle DAG 数据结构，可以用这个数据结构构建版本文件系统，区块链，甚至是永久性网站。IPFS 结合了分布式哈希表， 带有激励机制的块交换和自我认证命名空间。IPFS没有单故障点，节点不需要相互信任。GPFS完全兼容IPFS协议，是IPFS的激励层。GPFS与IPFS同处一个P2P网络，GPFS节点和IPFS节点的的数据可以无缝对接。
+## Abstract
+IPFS(InterPlanetary File System) is a distributed web, point-to-point hypermedia protocol. It can make our Internet faster, safer, and more open. In some respects, IPFS is similar to the web, but the web is centralized, and IPFS is a single Bittorrent cluster, distributed storage using git warehouses. In other words, IPFS provides a high-throughput content-addressable block storage model with content-addressable hyperlinks. This forms a generalized Merkle DAG data structure, which can be used to build version file systems, blockchains, and even permanent websites. IPFS combines distributed hash tables, block exchanges with incentive mechanisms, and self-certified namespaces. IPFS has no single point of failure, and nodes do not need to trust each other. GPFS is fully compatible with the IPFS protocol and is the incentive layer of IPFS. GPFS and IPFS are in the same P2P network, and the data of GPFS nodes and IPFS nodes can be seamlessly connected.
 
-## 项目背景
-IPFS作为Web3.0的重要基础设施，一直备受关注。[go-ipfs](https://github.com/ipfs/go-ipfs) 是其主要实现, 虽然已上线多年,一直处于半可用状态。主要归咎于没有激励层，导致活跃节点不多。随着万众期待的 [Filecoin](https://github.com/filecoin-project/lotus) 主网的上线，本以为可以得到改观。但是由于Filecoin本身的机制，决定了它只能存储冷数据。即使存取一个只有几K的小文件也要数个小时，这远远不能满足目前web3.0的要求。回到[go-ipfs](https://github.com/ipfs/go-ipfs)本身，我们发现它的文件存取非常快。目前也有许多团队基于上面开发，但都是各自为战，没有形成合力。GPFS要做的就是通过改造IPFS网络，提供激励节点，让所有的个人电脑都可以成为矿工，通过提供存储空间，获取激励，从而提升整个IPFS网络的吞吐量，保证网络中数据的安全、可用，真正成为web3.0的基石。
-
-## 网络结构
-GPFS节点是IPFS网络中的特殊节点，与IPFS节点无缝对接。从IPFS节点上可以读取保存在GPFS节点上的数据，反之亦然。同时通过GPFS节点保存的数据，会自动广播到其他的GPFS节点，形成3~5个副本，即使本地的数据被删除，也能从任意的IPFS或GPFS节点通过文件的CID找回。网络拓扑图如下：
+## Background
+As an important infrastructure of Web3.0, IPFS has always attracted attention.。[go-ipfs](https://github.com/ipfs/go-ipfs) is its main implementation. Although it has been online for many years, it has been in a semi-available state. Mainly due to the lack of incentive layer, resulting in not many active nodes. With the launch of the much-anticipated [Filecoin](https://github.com/filecoin-project/lotus) mainnet, I thought it could be changed. However, due to the mechanism of Filecoin itself, it is determined that it can only store cold data. Even access to a small file of only a few K takes several hours, which is far from meeting the current web3.0 requirements. Back to go-ipfs itself, we found that its file access is very fast. At present, there are also many teams based on the above development, but they are fighting each other and have not formed a joint force. What GPFS has to do is to transform the IPFS network and provide incentive nodes so that all personal computers can become miners. By providing storage space and obtaining incentives, the throughput of the entire IPFS network can be improved to ensure the security and availability of data in the network. Truly become the cornerstone of web3.0.
+## Network structure
+The GPFS node is a special node in the IPFS network and seamlessly connects with the IPFS node. The data stored on the GPFS node can be read from the IPFS node, and vice versa. At the same time, the data saved through the GPFS node will be automatically broadcast to other GPFS nodes to form 3 to 5 copies. Even if the local data is deleted, it can be retrieved from any IPFS or GPFS node through the CID of the file. The network topology is as follows:
 ![](https://raw.githubusercontent.com/gpfs-group/gpfs-doc/main/image/gpfs.jpg)
 
-## GPFS与Filecoin的差异
-- GPFS和IPFS同处一个网络，Filecoin是独立的网络。
-- GPFS和IPFS数据无缝对接，Filecoin需要单独开发数据转存功能。
-- GPFS读取数据速度快，适用于热数据，Filecoin读取数据速度慢，只能保存冷数据。
-- GPFS挖矿门槛低，不需要质押，对硬件没有特别要求，人人都可以挖矿。Filecoin挖矿门槛高，需要质押，需要高性能显卡和专业运维团队。
+## The difference between GPFS and Filecoin
+- GPFS and IPFS are on the same network, Filecoin is an independent network.
+- GPFS and IPFS data are seamlessly connected, and Filecoin needs to develop a data transfer function separately.
+- GPFS has a fast data reading speed and is suitable for hot data, while Filecoin has a slow data reading speed and can only store cold data.
+- GPFS has a low mining threshold, does not require pledges, and has no special requirements for hardware. Everyone can mine. Filecoin mining has a high threshold, requires pledges, high-performance graphics cards and professional operation and maintenance teams.
 
-## 代币经济模型
-GPFS 协议中原生的代币为 GPS，基于币安智能链BSC发行，矿工参与挖矿可以获得 GPS。GPS可用于后期GPFS的增值服务，比如DAPP或商业软件需要对接到GPFS时需要使用GPS付费。
-GPS 代币总量为 10,000,000,000 GPS，不对外募资，团队无预留，代币的分配规则如下：
+## Token economic model
+The native token in the GPFS protocol is GPS, which is issued based on the Binance Smart Chain BSC, and miners participate in mining to obtain GPS. GPS can be used for later value-added services of GPFS. For example, when DAPP or commercial software needs to be connected to GPFS, you need to use GPS to pay.
+The total amount of GPS tokens is 10,000,000,000 GPS, no external fundraising, and no reservations by the team. The token distribution rules are as follows:
 
-- 0.1 % 空投给10万个BSC地址。
-- 99.9 % 由挖矿产生，每4年产量减半。
+- 0.1% airdrop to 100,000 BSC addresses.  
+- 99.9% is generated by mining, and the output is halved every 4 years.
 
 ## 挖矿
-GPFS 项目的目标是为IPFS网络提供大量稳定的活跃节点。我们将尽可能减小挖矿门槛，每个节点只需提供10G 硬盘空间，和较小的网络带宽。GPFS网络每10分钟（200个区块高度）将在所有活跃节点中随机选举出若干个幸运节点，发放本次的奖励。每次奖励先按总额的50%平均发放给幸运的节点，再将另外50%按幸运节点持有GPS数量比例发放。为保证公平，分币逻辑通过智能合约实现，使用的随机算法公开可验证。
-选择幸运节点数的规则如下，假设在线节点数为N：
-- 当 N <= 10 时，选择所有节点。
-- 当 10 < N <= 100，选择10个节点。
-- 当 100 < N <= 1000，选择30个节点。
-- 当 1000 < N <= 10000，选择50个节点。
-- 当 N > 10000  ，选择100个节点。
-## 项目发布计划
-- 2021年4月， 发布GPFS 第一版代码，实现基于go-ipfs的改进，实现挖矿逻辑。
-- 2021年5月， 发布GPFS 第二版代码，开发分币智能合约，内部测试。
-- 2021年6月， 正式发布，开始对外挖矿。
-- 2021年9月, 发布兼容S3接口的网关。
+The goal of the GPFS project is to provide a large number of stable active nodes for the IPFS network. We will reduce the mining threshold as much as possible, and each node only needs to provide 10G hard disk space and smaller network bandwidth. The GPFS network will randomly select a number of lucky nodes from all active nodes every 10 minutes (200 block height) to issue this reward. Each time, 50% of the total rewards will be distributed to the lucky nodes on average, and the other 50% will be distributed in proportion to the number of GPS held by the lucky nodes. In order to ensure fairness, the currency division logic is implemented through smart contracts, and the random algorithm used is publicly verifiable.
+The rules for selecting the number of lucky nodes are as follows, assuming that the number of online nodes is N:
+- If N <= 10, select all nodes.
+- If 10 <N <= 100, select 10 nodes.
+- If 100 <N <= 1000, select 30 nodes.
+- If 1000 <N <= 10000, select 50 nodes.
+- If N> 10000, select 100 nodes.
 
-## 团队简介
-我们是一群来自IPFS社区的技术极客，怀着对IPFS技术的热忱走到一起，组成了GPFS团队。我们是一个去中心化自治组织，致力于IPFS技术在全球真正的实现落地。我们将持续优化GPFS网络协议，积极推进生态建设。Web3.0的大门已经开启，精彩值得期待，我们欢迎更多志同道合的技术极客加入。
+## Roadmap
+- April 2021, the first version of the GPFS code was released to realize the improvement based on go-ipfs and the mining logic.
+- May 2021, release the second version of the GPFS code, develop a smart contract for cents, and conduct internal testing.
+- June 2021, it was officially released, and external mining began.
+- September 2021, a gateway compatible with S3 interface will be released.
 
+## Team 
+We are a group of technical geeks from the IPFS community who came together with enthusiasm for IPFS technology and formed the GPFS team. We are a decentralized autonomous organization dedicated to the real implementation of IPFS technology in the world. We will continue to optimize the GPFS network protocol and actively promote ecological construction. The door of Web3.0 has been opened, and it is wonderful and worth looking forward to. We welcome more like-minded technical geeks to join.
 
