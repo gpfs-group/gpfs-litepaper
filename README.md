@@ -1,5 +1,6 @@
 
 # GPFS Network Litepaper
+[简体中文](README_CN.md)
 
 ## Abstract
 IPFS(InterPlanetary File System) is a distributed web, point-to-point hypermedia protocol. It can make our Internet faster, safer, and more open. In some respects, IPFS is similar to the web, but the web is centralized, and IPFS is a single Bittorrent cluster, distributed storage using git warehouses. In other words, IPFS provides a high-throughput content-addressable block storage model with content-addressable hyperlinks. This forms a generalized Merkle DAG data structure, which can be used to build version file systems, blockchains, and even permanent websites. IPFS combines distributed hash tables, block exchanges with incentive mechanisms, and self-certified namespaces. IPFS has no single point of failure, and nodes do not need to trust each other. GPFS is fully compatible with the IPFS protocol and is the incentive layer of IPFS. GPFS and IPFS are in the same P2P network, and the data of GPFS nodes and IPFS nodes can be seamlessly connected.
