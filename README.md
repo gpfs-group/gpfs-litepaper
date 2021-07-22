@@ -42,3 +42,6 @@ The rules for selecting the number of lucky nodes are as follows, assuming that 
 ## Team 
 We are a group of technical geeks from the IPFS community who came together with enthusiasm for IPFS technology and formed the GPFS team. We are a decentralized autonomous organization dedicated to the real implementation of IPFS technology in the world. We will continue to optimize the GPFS network protocol and actively promote ecological construction. The door of Web3.0 has been opened, and it is wonderful and worth looking forward to. We welcome more like-minded technical geeks to join.
 
+## Contacts
+
+Telegram： https://t.me/gpfsnet
